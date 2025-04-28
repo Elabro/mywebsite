@@ -1,0 +1,101 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(45deg, #141E30, #243B55);
+    background-size: 300% 300%;
+    animation: gradientAnimation 8s ease infinite;
+}
+
+/* Gradient animation */
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Text typing effect */
+.typing-text {
+    font-size: 40px;
+    font-weight: bold;
+    color: limegreen;
+    border-right: 3px solid white;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    animation: typing 3s steps(20, end) forwards, blink 0.7s infinite;
+}
+
+/* Typing effect */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* Cursor blinking */
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+/* Subtext */
+p {
+    font-size: 18px;
+    color: limegreen;
+    margin: 10px 0;
+}
+
+/* Neon button */
+.neon-button {
+    text-decoration: none;
+    padding: 15px 40px;
+    font-size: 20px;
+    font-weight: bold;
+    color: limegreen;
+    background: transparent;
+    border: 3px solid;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.neon-button:hover {
+    background-color: limegreen;
+    color: black;
+    text-decoration: none;
+    border-color: green;
+    text-decoration: none;
+}
+    
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .page {
+            width: 100vw;
+            height: 100vh;
+            background-image: url('Crs.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .login_link{
+            text-decoration: none;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.7); /* Black with 50% transparency */
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 0 20px rgba(0, 255, 170, 0.3); /* optional glow effect */
+          }
+          
+      
