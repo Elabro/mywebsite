@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcements - Cruise Steps School</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #32CD32; /* Lime Green */
+            --secondary: #808080; /* Gray */
+            --light-gray: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: #333;
+        }
+
+        /* Header/Navigation */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        /* Navigation Links */
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Announcements Page Styles */
+        .announcements-hero {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+                        url('school-celebration.jpg') center/cover;
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .announcements-hero h1 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .announcements-hero p {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .announcements-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 5%;
+        }
+
+        .announcement-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .announcement-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .announcement-header h2 {
+            font-size: 1.5rem;
+        }
+
+        .announcement-date {
+            background-color: white;
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+
+        .announcement-body {
+            padding: 2rem;
+        }
+
+        .announcement-body p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: var(--secondary);
+        }
+
+        .announcement-image {
+            margin: 1.5rem 0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .announcement-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .highlight-banner {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem;
+            text-align: center;
+            margin: 4rem 0;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-banner::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px dashed white;
+            border-radius: 12px;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .highlight-banner h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .highlight-banner p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+        }
+        
+        /* Navigation Links - Updated for Dropdown */
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            z-index: 1;
+            border-radius: 4px;
+            top: 100%;
+            left: 0;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: var(--secondary);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(50, 205, 50, 0.1);
+            color: var(--primary);
+        }
+
+        .dropdown > a::after {
+            content: "▾";
+            margin-left: 5px;
+            font-size: 0.8em;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+
+        /* About Page Specific Styles */
+        .about-hero {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+                        url('school-building.jpg') center/cover;
+            padding: 5rem 5%;
+            text-align: center;
+        }
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 70px);
+                background: white;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 2rem;
+                box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+                transition: left 0.3s ease;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .dropdown {
+                width: 100%;
+            }
+            
+            .dropdown-content {
+                position: static;
+                display: none;
+                width: 100%;
+                box-shadow: none;
+            }
+            
+            .dropdown:hover .dropdown-content {
+                display: none;
+            }
+            
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+            
+            .dropdown > a::after {
+                content: "▸";
+            }
+            
+            .dropdown.active > a::after {
+                content: "▾";
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-section, .about-section.reverse {
+                flex-direction: column;
+            }
+            
+            .about-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .anniversary-banner h2 {
+                font-size: 1.8rem;
+            }
+        }
+            .btn-container {
+                display: block;
+                flex-direction: row;
+                gap: 1rem;
+            }
+
+            .btn-outline {
+                margin-left: 0px;
+            }
+            .btn.btn-outline{
+              align-items: center;
+              width: 150px;
+              display: block;
+              flex-direction: row;
+              gap: 1rem;
+            }
+            .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            margin-left: 1rem;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header>
+      <nav>
+          <div class="logo">
+              <img src="Cruise logo.jpg" alt="Cruise Steps School Logo">
+              <h1>Cruise Steps School</h1>
+          </div>
+          
+          <div class="menu-toggle" id="mobile-menu">
+              <i class="fas fa-bars"></i>
+          </div>
+          <div class="nav-links" id="nav-links">
+              <a href="Cruisewelcomepage.html" class="active">Home</a>
+              <div>
+                  <a href="Announcement.html">Announcement </a>
+              </div>
+              <div class="dropdown">
+                  <a href="#">Academics <i class="fas fa-angle-down"></i></a>
+                  <div class="dropdown-content">
+                      <a href="Apply-for-admissions.html">Apply for Admissions</a>
+                      <a href="Addmission-states.html">Addmission states</a>
+                      <a href="freshman.html">fressman</a>
+                  </div>
+              </div>
+              
+              <div>
+              <a href="login.html" class="btn" style="padding: 0.5rem 1rem; margin: 0px;">Log-in</a>
+          </div>
+      </nav>
+  </header>
+    <!-- Announcements Hero Section -->
+    <section class="announcements-hero">
+        <h1>School Announcements</h1>
+        <p>Stay updated with the latest news and events at Cruise Steps School</p>
+    </section>
+
+    <!-- Announcements Container -->
+    <div class="announcements-container">
+        <!-- 25th Anniversary Announcement -->
+        <div class="announcement-card">
+            <div class="announcement-header">
+                <h2>30th Anniversary Celebration</h2>
+                <div class="announcement-date">June 15, 2025</div>
+            </div>
+            <div class="announcement-body">
+                <p>Dear Students, Parents, and Staff,</p>
+                
+                <p>We are thrilled to announce that Cruise Steps School is celebrating its 30th anniversary this year! Since our establishment in 1987 EC, we have been committed to delivering quality education and setting high standards for schools in our area and across the country.</p>
+                
+                
+                <p>This year marks a special milestone in our school's history, and we invite everyone to join us for a grand community celebration on June 30th. The event will bring together current and former students, parents, and staff members to reconnect and share memories.</p>
+                
+                <p>Led by professional educational experts renowned in the field, our school continues to deliver quality education that evolves with the needs and challenges of the time. This celebration is not just about looking back at our achievements, but also about looking forward to an even brighter future.</p>
+                
+                <p>We humbly invite all members of our school community to participate in this joyous occasion. Should you have any questions, please don't hesitate to contact the school office.</p>
+                
+                <p>Thank you for being part of our journey!</p>
+            </div>
+        </div>
+
+
+ 
+                <!-- Additional Announcement -->
+
+        <div class="announcement-card">
+
+            <div class="announcement-header">
+                <h2>Anniversary Photo Contest</h2>
+                <div class="announcement-date">መስከረም 23 ቀን 2017ዓ.ም.</div>
+            </div>
+            <div class="announcement-body">
+                <p>Sample announcement</p>
+                
+                <p><strong>Alert:</strong></p>
+                <ul style="margin-left: 20px; color: var(--secondary); margin-bottom: 1rem;">
+                
+                <p>
+በዛሬው ዕለት በትምህርት ቤታችን የገብርኤል ግቢ የ2017ዓ.ም የትምህርት ዓመት ተመራቂ ተማሪዎች ኮሚቴ መሪ የሚሆኑ ተማሪዎችን ለመምረጥ ማለትም የኮሚቴው ፕሬዝዳንት እና ምክትል ፕሬዝዳንት ሆነው ለመመረጥ ከቀረቡት አምስት እጩ ተወዳዳሪዎች መካከል መሪዎቻቸውን ዲሞክራሲያዊ የሆነ ምርጫ በማድረግ መርጠዋል፡፡
+በዕለቱ ሁሉም የግቢያችን ተማሪዎች ታዳሚ በሆኑበት መድረክ እጩ ተወዳዳሪ (ተመራጭ ) ተማሪዎቹ እራሳቸውን ለሁሉም የትምህርት ቤታችን ማህበረሰብ ያስተዋወቁ ሲሆን፤ ተማሪዎቹ ቢመርጧቸው የክሩዝ ስቴፕስ ተማሪዎች ፕሬዝዳንትነት ሥልጣናቸውን ተጠቅመው ለተማሪዎች ሊያበረክቱ እና ሊከውኑ ስላቀዱት ጉዳይ ለመላው ተማሪዎች ገለፃ አድርገዋል፡፡
+በመቀጠል በዕለቱ የተገኙት ሁሉም የ12ኛ ክፍል ተማሪዎች ድምፅ ለመስጠት በተዘጋጀላቸው ሥፍራ የተመራጭ ተማሪዎች ታዛቢዎች ባሉበት ድምፅ እንዲሠጡ ከተደረገ በኋላ እጩ ተመራጭ ተማሪዎች፣ የተመራጭ ተማሪዎች ተወካዮች እንዲሁም ርዕሣነ መምህራን እና ሌሎች የት/ቤታችን ሠራተኞች ባሉበት የድምፅ መስጫ ሣጥኖች (ኮሮጆዎች) እንዲከፈቱ በማድረግ የድምፅ ቆጠራ ተደርጓል፡፡ በተደረገው የድምፅ ቆጠራ ውጤት መሠርት
+ተማሪ ኤልናታን ግዛቴ 120 ድምፅ በማግኘት የ2017ዓም. ተመራቂ ተማሪዎች እንዲሁም የሁሉም የግቢያችን ተማሪዎች ፕሬዝዳንት ለመሆን ችሏል፡፡ እንዲሁም
+ተማሪ ሶሊያና ካሣሁን 69 ድምፅ በማግኘት የ2017ዓም. ተመራቂ ተማሪዎች እንዲሁም የሁሉም የግቢያችን ተማሪዎች ምክትል ፕሬዝዳንት ለመሆን ችላለች፡፡
+ከዚህ በታች የቀረቡት ፎቶዎች እና ምስለ-ድምፆች የዕለቱን ሁነት የሚገልፁ ናቸው</p>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">Cruise Steps School</div>
+        <div class="footer-links">
+            <a href="Test.html">Home</a>
+            <a href="about-us.html">About Us</a>
+            <a href="academics.html">Programs</a>
+            <a href="announcements.html">News</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <p class="copyright">© 2025 Cruise Steps School. All rights reserved.</p>
+    </footer>
+    <script>
+      // Mobile Menu Toggle
+      document.getElementById('mobile-menu').addEventListener('click', function() {
+          document.getElementById('nav-links').classList.toggle('active');
+      });
+
+      // Mobile Dropdown Toggle
+      const dropdowns = document.querySelectorAll('.dropdown');
+      
+      dropdowns.forEach(dropdown => {
+          dropdown.addEventListener('click', function(e) {
+              if (window.innerWidth <= 992) {
+                  e.preventDefault();
+                  this.classList.toggle('active');
+                  
+                  // Close other dropdowns when opening a new one
+                  dropdowns.forEach(otherDropdown => {
+                      if (otherDropdown !== this) {
+                          otherDropdown.classList.remove('active');
+                      }
+                  });
+              }
+          });
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function(e) {
+          if (!e.target.closest('.dropdown') && window.innerWidth <= 992) {
+              dropdowns.forEach(dropdown => {
+                  dropdown.classList.remove('active');
+              });
+          }
+      });
+  </script>
+</body>
+</html>

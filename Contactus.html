@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us | Cruise School ET</title>
+  <style>
+    :root {
+      --primary: #32CD32; /* limegreen */
+      --bg: #fff;
+      --text: #333;
+      --transition: 0.6s ease-in-out;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: sans-serif; color: var(--text); background: var(--bg); line-height:1.6; }
+    a { color: var(--primary); text-decoration:none; }
+    header { position: fixed; top:0; left:0; width:100%; background:rgba(255,255,255,0.9); backdrop-filter: blur(5px); z-index:100; }
+    .container { max-width:1100px; margin:0 auto; padding:0 1rem; }
+    nav { display:flex; justify-content:space-between; align-items:center; height:60px; }
+    .logo { font-size:1.4rem; font-weight:bold; color: var(--primary); }
+    .menu { display:flex; gap:1rem; }
+    .menu a { padding:0.5rem; transition: background var(--transition); }
+    .menu a:hover { background: var(--primary); color:#fff; border-radius:4px; }
+    .hamburger { display:none; cursor:pointer; flex-direction:column; gap:4px; }
+    .hamburger div { width:25px; height:3px; background: var(--text); }
+    section { padding:100px 0; opacity:0; transform: translateY(20px); transition: opacity var(--transition), transform var(--transition); }
+    section.visible { opacity:1; transform: translateY(0); }
+    #hero { background: var(--primary); color:#fff; text-align:center; padding:120px 1rem; }
+    #hero h1 { font-size:2.4rem; margin-bottom:1rem; }
+    #about p { max-width:800px; margin:1rem auto; }
+    #contact .card { background:#f9f9f9; border:1px solid #ddd; border-radius:6px; padding:1rem; margin-bottom:1rem; }
+    #contact h2, #contact h3, #contact h5 { margin-top:1rem; color: var(--primary); }
+    footer { text-align:center; padding:1rem 0; background:#f1f1f1; font-size:0.9rem; }
+
+    @media(max-width:768px){
+      .menu { position: absolute; top:60px; left:0; width:100%; flex-direction:column; background:rgba(255,255,255,0.95); max-height:0; overflow:hidden; transition:max-height var(--transition); }
+      .menu.open { max-height:200px; }
+      .hamburger { display:flex; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo"></div>
+        <div class="hamburger" id="hamburger">
+          <div></div><div></div><div></div>
+        </div>
+        <div class="menu" id="menu">
+          <a href="Cruisewelcomepage.html">Home</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero">
+      <div class="container">
+        <h1>Contact Us</h1>
+        
+       
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <h2></h2>
+       
+       
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <h2>Contact Us</h2>
+        <p>If you have any questions, please leave us a message or contact us through the following addresses:</p>
+
+        <div class="card">
+          <h3>Head OFFICE &amp; YZ Campus</h3>
+          <h5>Address</h5>
+          <p>Nefas Silk Lafto Subcity, Woreda 3, House No. 1456, Libya Road, next to previous Melifoni Pastry</p>
+          <h5>Phone</h5>
+          <p>+251-113-718721 / 24 / 25</p>
+          <h5>Email</h5>
+          <p>info@cruiseschoolet.com<br>contact@cruiseschoolet.com</p>
+        </div>
+
+        <!-- KG Campuses -->
+        <div class="card">
+          <h3>KG-1</h3>
+          <p>K/Keranio Sub city, previous Bus #3 Terminal</p>
+          <p>Phone: +251-113-724400</p>
+        </div>
+        <div class="card">
+          <h3>KG-2</h3>
+          <p>K/Keranio Sub city, behind Russia Camp Police Station</p>
+          <p>Phone: +251-113-201887</p>
+        </div>
+        <div class="card">
+          <h3>KG-3</h3>
+          <p>N/S/Lafto Sub city, on the way to Gebriel from Bus #3 Terminal, Behind Abeba Super Market</p>
+          <p>Phone: +251-118-391527</p>
+        </div>
+        <div class="card">
+          <h3>KG-4</h3>
+          <p>N/S/Lafto Sub city, on the way to Gebriel from Bus #3 Terminal, near Abeba Super Market</p>
+          <p>Phone: +251-118-316715</p>
+        </div>
+
+        <!-- Middle Campuses -->
+        <div class="card">
+          <h3>Middle Campus 1</h3>
+          <p>N/S/Lafto Sub city, near Behind Russia Camp Police Station</p>
+          <p>Phone: +251-113-724407</p>
+        </div>
+        <div class="card">
+          <h3>Middle Campus 2</h3>
+          <p>N/S/Lafto Sub city, on the way to Gebriel from Bus #3 Terminal, near Abeba Super Market</p>
+          <p>Phone: +251-113-718721 / 24 / 25</p>
+        </div>
+
+        <!-- Gebriel & Alem Bank -->
+        <div class="card">
+          <h3>Gebriel Campus</h3>
+          <p>N/S/Lafto Sub city, opposite to Dil Gebeya, next to Save the Children</p>
+          <p>Phone: +251-118-391522</p>
+        </div>
+        <div class="card">
+          <h3>Alem Bank Campus</h3>
+          <p>K/Keranio Sub city, on the way to Anfo</p>
+          <p>Phone: +251-118-314539</p>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      &copy; 2025 Cruise School ET. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const menu = document.getElementById('menu');
+    hamburger.addEventListener('click', () => {
+      menu.classList.toggle('open');
+    });
+    // Smooth scroll for in‑page links
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(link.getAttribute('href'))
+          .scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+    // Fade‑in on scroll
+    const sections = document.querySelectorAll('section');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(ent => {
+        if (ent.isIntersecting) {
+          ent.target.classList.add('visible');
+          obs.unobserve(ent.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    sections.forEach(s => obs.observe(s));
+  </script>
+</body>
+</html>
