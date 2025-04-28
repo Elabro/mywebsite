@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freshman Information | Cruise Steps School</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #32CD32; /* Lime Green */
+            --secondary: #808080; /* Gray */
+            --light-gray: #f5f5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: #333;
+        }
+        
+        /* Header/Navigation - Same as main site */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            z-index: 1;
+            border-radius: 4px;
+            top: 100%;
+            left: 0;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: var(--secondary);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(50, 205, 50, 0.1);
+            color: var(--primary);
+        }
+
+        .dropdown > a::after {
+            content: "▾";
+            margin-left: 5px;
+            font-size: 0.8em;
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+
+        /* Page Hero */
+        .page-hero {
+            background: linear-gradient(135deg, rgba(50, 205, 50, 0.1), rgba(128, 128, 128, 0.05));
+            padding: 4rem 5%;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .page-hero p {
+            color: var(--secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 5%;
+        }
+
+        /* Freshman Sections */
+        .freshman-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .freshman-section h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .freshman-section h3 {
+            color: var(--secondary);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .freshman-section p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        .freshman-section ul, .freshman-section ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .freshman-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Info Cards */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .info-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .info-card p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            left: 50%;
+        }
+
+        .left::after {
+            right: -12px;
+        }
+
+        .right::after {
+            left: -12px;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Button */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+
+        /* Footer - Same as main site */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 70px);
+                background: white;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 2rem;
+                box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+                transition: left 0.3s ease;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .dropdown {
+                width: 100%;
+            }
+            
+            .dropdown-content {
+                position: static;
+                display: none;
+                width: 100%;
+                box-shadow: none;
+            }
+            
+            .dropdown:hover .dropdown-content {
+                display: none;
+            }
+            
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+            
+            .dropdown > a::after {
+                content: "▸";
+            }
+            
+            .dropdown.active > a::after {
+                content: "▾";
+            }
+
+            /* Timeline adjustments */
+            .timeline::before {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 21px;
+            }
+            
+            .left::after, .right::after {
+                left: 21px;
+            }
+            
+            .right {
+                left: 0%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="Cruise logo.jpg" alt="Cruise Steps School Logo">
+                <h1>Cruise Steps School</h1>
+            </div>
+            
+            <div class="menu-toggle" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="nav-links" id="nav-links">
+                <a href="Cruisewelcomepage.html">Home</a>
+                <div>
+                    <a href="Announcement.html">Announcement</a>
+                </div>
+                <div class="dropdown">
+                    <a href="#">Academics <i class="fas fa-angle-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="Apply-for-admissions.html">Apply for Admissions</a>
+                        <a href="Addmission-states.html">Admission Status</a>
+                        <a href="freshman.html" class="active">Freshman</a>
+                    </div>
+                </div>
+                 <div>
+                <a href="login.html" class="btn" style="padding: 0.5rem 1rem; margin: 0px;">Log-in</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <h1>Freshman Information</h1>
+        <p>Welcome to Cruise Steps School! This page contains all the essential information you need as a new student to start your academic journey successfully.</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Welcome Section -->
+        <section class="freshman-section">
+            <h2>Welcome to the Cruise Steps Family!</h2>
+            <p>Congratulations on your admission to Cruise Steps School! We're excited to have you join our community of learners. As a freshman, you're about to embark on an exciting educational journey that will challenge and inspire you.</p>
+            <p>This page is designed to help you navigate your first year with us. Below you'll find important information about orientation, academic requirements, campus resources, and more.</p>
+        </section>
+
+        <!-- Quick Info Cards -->
+        <div class="info-cards">
+            <div class="info-card">
+                <h3><i class="fas fa-calendar-alt"></i> Important Dates</h3>
+                <p>View key dates for orientation, registration, and the start of classes to ensure you don't miss any important deadlines.</p>
+               
+            </div>
+            <div class="info-card">
+                <h3><i class="fas fa-book"></i> Academic Requirements</h3>
+                <p>Learn about the core curriculum, credit requirements, and academic expectations for your first year.</p>
+               
+            </div>
+            <div class="info-card">
+                <h3><i class="fas fa-question-circle"></i> Get Help</h3>
+                <p>Find resources for academic support, counseling services, and who to contact with questions.</p>
+               
+            </div>
+        </div>
+
+        <!-- Orientation Section -->
+        <section class="freshman-section" id="dates">
+            <h2>Orientation Program</h2>
+            <p>All new students are required to attend our comprehensive orientation program designed to help you transition smoothly into college life.</p>
+            
+            <h3>What to Expect:</h3>
+            <ul>
+                <li>Campus tour and facilities overview</li>
+                <li>Introduction to faculty and staff</li>
+                <li>Academic expectations and success strategies</li>
+                <li>Student services and resources</li>
+                <li>Social activities to meet fellow students</li>
+            </ul>
+
+            <h3>Orientation Schedule</h3>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Day 1: Welcome & Campus Tour</h3>
+                        <p>9:00 AM - Registration</p>
+                        <p>10:00 AM - Welcome Address</p>
+                        <p>11:00 AM - Campus Tour</p>
+                        <p>1:00 PM - Lunch with Faculty</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>Day 2: Academic Overview</h3>
+                        <p>9:00 AM - Meeting Your Advisor</p>
+                        <p>10:30 AM - Curriculum Requirements</p>
+                        <p>1:00 PM - Library Resources Workshop</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Day 3: Student Life</h3>
+                        <p>9:00 AM - Clubs & Organizations Fair</p>
+                        <p>11:00 AM - Wellness & Counseling Services</p>
+                        <p>2:00 PM - Social Mixer</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Academic Requirements -->
+        <section class="freshman-section" id="academics">
+            <h2>Academic Requirements</h2>
+            <p>As a freshman, you'll be following a structured curriculum designed to build a strong foundation for your academic career.</p>
+            
+            <h3>First Year Curriculum</h3>
+            <p>All freshmen must complete the following core requirements:</p>
+            <ul>
+                <li><strong>English Composition</strong> (3 credits)</li>
+                <li><strong>Mathematics</strong> (3 credits)</li>
+                <li><strong>Natural Sciences</strong> (4 credits with lab)</li>
+                <li><strong>Social Sciences</strong> (3 credits)</li>
+                <li><strong>First-Year Seminar</strong> (1 credit)</li>
+            </ul>
+            
+            <h3>Academic Advising</h3>
+            <p>You'll be assigned a faculty advisor who will help you:</p>
+            <ol>
+                <li>Select appropriate courses each semester</li>
+                <li>Understand degree requirements</li>
+                <li>Explore academic and career opportunities</li>
+                <li>Address any academic challenges</li>
+            </ol>
+            
+            <h3>Grade Requirements</h3>
+            <p>To remain in good academic standing, you must:</p>
+            <ul>
+                <li>Maintain a minimum 2.0 GPA</li>
+                <li>Complete at least 12 credits per semester</li>
+                <li>Pass your First-Year Seminar course</li>
+            </ul>
+        </section>
+
+        <!-- Support Services -->
+        <section class="freshman-section" id="support">
+            <h2>Student Support Services</h2>
+            <p>We offer numerous resources to help you succeed during your first year and beyond.</p>
+            
+            <h3>Academic Support</h3>
+            <ul>
+                <li><strong>Tutoring Center:</strong> Free peer tutoring in all core subjects</li>
+                <li><strong>Writing Center:</strong> Assistance with papers and assignments</li>
+                <li><strong>Math Lab:</strong> Drop-in help for math courses</li>
+                <li><strong>Study Skills Workshops:</strong> Time management, note-taking, and test preparation</li>
+            </ul>
+            
+            <h3>Health & Wellness</h3>
+            <ul>
+                <li><strong>Counseling Services:</strong> Confidential mental health support</li>
+                <li><strong>Health Center:</strong> Basic medical care and referrals</li>
+                <li><strong>Fitness Center:</strong> Free access to exercise facilities</li>
+            </ul>
+            
+            <h3>Career Services</h3>
+            <ul>
+                <li><strong>Career Counseling:</strong> Explore majors and career paths</li>
+                <li><strong>Resume Help:</strong> Prepare for internships and jobs</li>
+                <li><strong>Job Fairs:</strong> Connect with potential employers</li>
+            </ul>
+        </section>
+
+        <!-- Next Steps -->
+        <section class="freshman-section">
+            <h2>Next Steps</h2>
+            <p>Here's what you need to do before classes begin:</p>
+            
+            <div class="info-cards">
+                <div class="info-card">
+                    <h3><i class="fas fa-laptop"></i> Activate Your Account</h3>
+                    <p>Set up your school email and access the student portal to register for classes.</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-book"></i> Complete Placement Tests</h3>
+                    <p>If required, take math and language placement tests online.</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-home"></i> Housing Information</h3>
+                    <p>Residential students should complete housing forms and review move-in details.</p>
+                </div>
+            </div>
+            
+           
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">Cruise Steps School</div>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="#">About Us</a>
+            <a href="#">Programs</a>
+            <a href="#">News</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <p class="copyright">© 2025 Cruise Steps School. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            document.getElementById('nav-links').classList.toggle('active');
+        });
+
+        // Mobile Dropdown Toggle
+        const dropdowns = document.querySelectorAll('.dropdown');
+        
+        dropdowns.forEach(dropdown => {
+            dropdown.addEventListener('click', function(e) {
+                if (window.innerWidth <= 992) {
+                    e.preventDefault();
+                    this.classList.toggle('active');
+                    
+                    // Close other dropdowns when opening a new one
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== this) {
+                            otherDropdown.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.dropdown') && window.innerWidth <= 992) {
+                dropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

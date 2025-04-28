@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password - Cruise Steps School</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #32CD32; /* Lime Green */
+            --secondary: #808080; /* Gray */
+            --light-gray: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-image: url("Crs.jpg");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Header/Navigation - Same as other pages */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        /* Password Reset Container */
+        .password-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            margin-top: 80px;
+        }
+
+        .password-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .password-header h2 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .password-header p {
+            color: var(--secondary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--secondary);
+            font-weight: 500;
+        }
+
+        .password-input {
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--secondary);
+        }
+
+        .password-strength {
+            margin-top: 5px;
+            height: 5px;
+            background-color: #eee;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .strength-meter {
+            height: 100%;
+            width: 0;
+            background-color: red;
+            transition: width 0.3s, background-color 0.3s;
+        }
+
+        .password-requirements {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(50, 205, 50, 0.1);
+            border-radius: 4px;
+            color: var(--secondary);
+        }
+
+        .password-requirements h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .password-requirements ul {
+            padding-left: 20px;
+        }
+
+        .password-requirements li {
+            margin-bottom: 5px;
+            list-style-type: none;
+            position: relative;
+        }
+
+        .password-requirements li:before {
+            content: "•";
+            color: var(--primary);
+            position: absolute;
+            left: -15px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #2bb82b;
+        }
+
+        .back-to-login {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-to-login a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-to-login a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .password-container {
+                padding: 30px 20px;
+                margin: 80px 20px 20px;
+            }
+        }
+
+        /* Password Validation Styles */
+        .valid {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="Cruise logo.jpg" alt="Cruise Steps School Logo">
+                <h1>Cruise Steps School</h1>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Password Reset Form -->
+    <div class="password-container">
+        <div class="password-header">
+            <h2>Reset Your Password</h2>
+            <p>Create a new password for your account</p>
+        </div>
+
+        <form id="resetPasswordForm">
+            <div class="form-group">
+                <label for="newPassword">New Password</label>
+                <div class="password-input">
+                    <input type="password" id="newPassword" name="newPassword" required>
+                    <i class="fas fa-eye toggle-password" id="toggleNewPassword"></i>
+                </div>
+                <div class="password-strength">
+                    <div class="strength-meter" id="strengthMeter"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm New Password</label>
+                <div class="password-input">
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <i class="fas fa-eye toggle-password" id="toggleConfirmPassword"></i>
+                </div>
+                <div id="passwordMatch" style="margin-top: 5px;"></div>
+            </div>
+
+            <div class="password-requirements">
+                <h4>Password Requirements:</h4>
+                <ul>
+                    <li id="length" class="invalid">At least 8 characters long</li>
+                    <li id="uppercase" class="invalid">Contains at least one uppercase letter</li>
+                    <li id="number" class="invalid">Contains at least one number</li>
+                    <li id="special" class="invalid">Contains at least one special character</li>
+                </ul>
+            </div>
+
+            <button type="submit" class="btn" id="submitBtn" disabled>Reset Password</button>
+        </form>
+
+        <div class="back-to-login">
+            <a href="Student login.html"><i class="fas fa-arrow-left"></i> Back to Login</a>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Password Visibility
+        document.getElementById('toggleNewPassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('newPassword');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('confirmPassword');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // Password Validation
+        const newPassword = document.getElementById('newPassword');
+        const confirmPassword = document.getElementById('confirmPassword');
+        const strengthMeter = document.getElementById('strengthMeter');
+        const passwordMatch = document.getElementById('passwordMatch');
+        const submitBtn = document.getElementById('submitBtn');
+
+        newPassword.addEventListener('input', function() {
+            const password = this.value;
+            validatePassword(password);
+            checkPasswordsMatch();
+        });
+
+        confirmPassword.addEventListener('input', checkPasswordsMatch);
+
+        function validatePassword(password) {
+            // Check length
+            const lengthValid = password.length >= 8;
+            document.getElementById('length').className = lengthValid ? 'valid' : 'invalid';
+
+            // Check uppercase
+            const uppercaseValid = /[A-Z]/.test(password);
+            document.getElementById('uppercase').className = uppercaseValid ? 'valid' : 'invalid';
+
+            // Check number
+            const numberValid = /[0-9]/.test(password);
+            document.getElementById('number').className = numberValid ? 'valid' : 'invalid';
+
+            // Check special character
+            const specialValid = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+            document.getElementById('special').className = specialValid ? 'valid' : 'invalid';
+
+            // Calculate strength
+            let strength = 0;
+            if (lengthValid) strength += 25;
+            if (uppercaseValid) strength += 25;
+            if (numberValid) strength += 25;
+            if (specialValid) strength += 25;
+
+            // Update strength meter
+            strengthMeter.style.width = strength + '%';
+            if (strength < 50) {
+                strengthMeter.style.backgroundColor = '#ff4444';
+            } else if (strength < 75) {
+                strengthMeter.style.backgroundColor = '#ffbb33';
+            } else {
+                strengthMeter.style.backgroundColor = '#00C851';
+            }
+
+            return strength === 100;
+        }
+
+        function checkPasswordsMatch() {
+            const password = newPassword.value;
+            const confirm = confirmPassword.value;
+
+            if (password && confirm) {
+                if (password === confirm) {
+                    passwordMatch.innerHTML = '<span style="color:#00C851">Passwords match!</span>';
+                    submitBtn.disabled = !validatePassword(password);
+                } else {
+                    passwordMatch.innerHTML = '<span style="color:#ff4444">Passwords do not match</span>';
+                    submitBtn.disabled = true;
+                }
+            } else {
+                passwordMatch.innerHTML = '';
+                submitBtn.disabled = true;
+            }
+        }
+
+        // Form Submission
+        document.getElementById('resetPasswordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Here you would typically send the new password to your server
+            alert('Password has been reset successfully!');
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>
