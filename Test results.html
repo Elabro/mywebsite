@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Grades</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #32CD32; /* Lime Green */
+            --secondary: #808080; /* Gray */
+            --light-gray: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: #333;
+            margin: 0;
+            padding-top: 60px; /* Adjust for fixed header */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Header/Navigation */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+
+        /* Grade Container */
+        .grade-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            margin-top: 20px; /* Add margin below the header */
+        }
+
+        .language-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .language-toggle button {
+            padding: 8px 12px;
+            margin-left: 5px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+
+        .language-toggle button.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        h2 {
+            color: #2e8b57;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .grade-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .grade-table th, .grade-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .grade-table th {
+            background-color: #2ecc71;
+            color: white;
+            font-weight: bold;
+        }
+
+        .grade-table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .grade-table .total-row {
+            font-weight: bold;
+            background-color: #f0f0f0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .grade-container {
+                margin-top: 80px; /* Adjust for mobile header */
+            }
+        }
+
+        @media (max-width: 500px) {
+            .grade-container {
+                width: 100%;
+                border-radius: 0;
+                box-shadow: none;
+                padding: 10px;
+            }
+
+            .grade-table th, .grade-table td {
+                padding: 8px;
+                font-size: 0.9em;
+            }
+
+            .language-toggle {
+                top: 5px;
+                right: 5px;
+            }
+
+            .language-toggle button {
+                padding: 6px 10px;
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="Cruise logo.jpg" alt="School Logo"> <h1>Cruise Steps School</h1>
+            </div>
+            <div class="menu-toggle" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="nav-links" id="nav-links">
+                <a href="#">Dashboard</a>
+                <a href="#">Courses</a>
+                <a href="#" class="active" data-i18n="grades">Grades</a>
+                <a href="#">Settings</a>
+                <a href="login.html">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="grade-container">
+        <div class="language-toggle">
+            <button id="en-btn" class="active">English</button>
+            <button id="am-btn">Amharic</button>
+        </div>
+        <h2 id="welcome-message" data-i18n="welcome_no_name">Student Grades</h2>
+        <table class="grade-table">
+            <thead>
+                <tr>
+                    <th data-i18n="assessmentType">Assessment Type</th>
+                    <th data-i18n="weight">Weight</th>
+                    <th>Score Obtained</th>
+                    <th data-i18n="maximumScore">Maximum Score</th>
+                </tr>
+            </thead>
+            <tbody id="grade-details">
+            </tbody>
+            <tfoot id="total-grade">
+            </tfoot>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const welcomeMessage = document.getElementById("welcome-message");
+            const gradeDetailsBody = document.getElementById("grade-details");
+            const totalGradeFooter = document.getElementById("total-grade");
+            const enBtn = document.getElementById("en-btn");
+            const amBtn = document.getElementById("am-btn");
+            const langButtons = document.querySelectorAll('.language-toggle button');
+            const navLinks = document.getElementById('nav-links');
+            const mobileMenuToggle = document.getElementById('mobile-menu');
+
+            // Language data object
+            const translations = {
+                en: {
+                    welcome: "Welcome, {studentName}! Your grades are shown below:",
+                    welcome_no_name: "Student Grades",
+                    assessmentType: "Assessment Type",
+                    weight: "Weight",
+                    maximumScore: "Maximum Score",
+                    firstClass: "First Class (10%)",
+                    midTest: "Mid Test (20%)",
+                    secondClass: "Second Class Test (10%)",
+                    tenActivities: "Ten Activities (15%)",
+                    finalTest: "Final Test (45%)",
+                    totalResult: "Total Grade",
+                    grades: "Grades"
+                },
+                am: {
+                    welcome: "እንኳን ደህና መጡ, {studentName}! የእርስዎ ውጤት ከዚህ በታች ይታያል:",
+                    welcome_no_name: "የተማሪ ውጤት",
+                    assessmentType: "የውጤት አይነት",
+                    weight: "ክብደት",
+                    maximumScore: "ከፍተኛ ነጥብ",
+                    firstClass: "የመጀመሪያ ክፍል (10%)",
+                    midTest: "የአጋማሽ ፈተና (20%)",
+                    secondClass: "ሁለተኛ ክፍል ፈተና (10%)",
+                    tenActivities: "አስር የክፍል ውስጥ እንቅስቃሴዎች (15%)",
+                    finalTest: "የመጨረሻ ፈተና (45%)",
+                    totalResult: "ጠቅላላ ውጤት",
+                    grades: "ውጤቶች"
+                }
+            };
+
+            let currentLanguage = localStorage.getItem("language") || "en";
+            setLanguage(currentLanguage);
+
+            function setLanguage(lang) {
+                currentLanguage = lang;
+                localStorage.setItem("language", lang);
+                langButtons.forEach(btn => btn.classList.remove('active'));
+                document.getElementById(`${lang}-btn`).classList.add('active');
+
+                const studentName = localStorage.getItem("userName");
+                welcomeMessage.textContent = studentName ? translations[lang].welcome.replace("{studentName}", studentName) : translations[lang].welcome_no_name;
+
+                const elementsToTranslate = document.querySelectorAll("[data-i18n]");
+                elementsToTranslate.forEach(element => {
+                    const key = element.getAttribute("data-i18n");
+                    element.textContent = translations[lang][key];
+                });
+
+                // Generate and display grades based on the current language
+                displayGrades(currentLanguage);
+            }
+
+            function getRandomGrade() {
+                return Math.floor(Math.random() * 101);
+            }
+
+            function displayGrades(lang) {
+                const firstClassScore = getRandomGrade();
+                const midTestScore = getRandomGrade();
+                const secondClassScore = getRandomGrade();
+                const tenActivitiesScore = getRandomGrade();
+                const finalTestScore = getRandomGrade();
+
+                const firstClassWeighted = (firstClassScore / 100) * 0.10;
+                const midTestWeighted = (midTestScore / 100) * 0.20;
+                const secondClassWeighted = (secondClassScore / 100) * 0.10;
+                const tenActivitiesWeighted = (tenActivitiesScore / 100) * 0.15;
+                const finalTestWeighted = (finalTestScore / 100) * 0.45;
+
+                const totalGrade = firstClassWeighted + midTestWeighted + secondClassWeighted + tenActivitiesWeighted + finalTestWeighted;
+
+                gradeDetailsBody.innerHTML = `
+                    <tr>
+                        <td data-i18n="firstClass">${translations[lang].firstClass}</td>
+                        <td>10%</td>
+                        <td>${firstClassScore}</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td data-i18n="midTest">${translations[lang].midTest}</td>
+                        <td>20%</td>
+                        <td>${midTestScore}</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td data-i18n="secondClass">${translations[lang].secondClass}</td>
+                        <td>10%</td>
+                        <td>${secondClassScore}</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td data-i18n="tenActivities">${translations[lang].tenActivities}</td>
+                        <td>15%</td>
+                        <td>${tenActivitiesScore}</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td data-i18n="finalTest">${translations[lang].finalTest}</td>
+                        <td>45%</td>
+                        <td>${finalTestScore}</td>
+                        <td>100</td>
+                    </tr>
+                `;
+
+                totalGradeFooter.innerHTML = `
+                    <tr>
+                        <td colspan="2" class="total-row" data-i18n="totalResult">${translations[lang].totalResult}</td>
+                        <td class="total-row">${(totalGrade * 100).toFixed(2)}%</td>
+                        <td class="total-row">100%</td>
+                    </tr>
+                `;
+            }
+
+            enBtn.addEventListener("click", () => setLanguage("en"));
+            amBtn.addEventListener("click", () => setLanguage("am"));
+
+            // Initial display of grades based on the default or stored language
+            displayGrades(currentLanguage);
+
+            // Mobile Menu Toggle
+            mobileMenuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
